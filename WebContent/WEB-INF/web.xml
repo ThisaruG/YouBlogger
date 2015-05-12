@@ -1,0 +1,107 @@
+<web-app>
+    <servlet>
+        <servlet-name>Authenticator</servlet-name>
+        <servlet-class>login.AuthenticationServer</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>Poster</servlet-name>
+        <servlet-class>posts.SavePost</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>Index</servlet-name>
+        <servlet-class>login.IndexServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>AddComment</servlet-name>
+        <servlet-class>comments.AddComment</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>ShowPost</servlet-name>
+        <servlet-class>posts.ShowPost</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>Authenticator</servlet-name>
+        <url-pattern>/new_post</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Poster</servlet-name>
+        <url-pattern>/posted</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ShowPost</servlet-name>
+        <url-pattern>/show_post</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/Index</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AddComment</servlet-name>
+        <url-pattern>/add_comment</url-pattern>
+    </servlet-mapping>
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/NotFound</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/ServerError</location>
+    </error-page>
+    
+	<welcome-file-list>
+	    <welcome-file>Index</welcome-file>
+	    <welcome-file>index.html</welcome-file>
+	    <welcome-file>index.htm</welcome-file>
+	    <welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Authentication Needs For Adding A New Post</web-resource-name>
+            <url-pattern>/new_post</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>tomcat</role-name>
+        </auth-constraint>
+
+        <user-data-constraint>
+			<!-- transport-guarantee can be CONFIDENTIAL, INTEGRAL, or NONE -->
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+    </security-constraint>
+    
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>protected</web-resource-name>
+			<url-pattern>/new_post</url-pattern>
+			<http-method-omission>GET</http-method-omission>
+			<http-method-omission>POST</http-method-omission>
+		</web-resource-collection>
+		<auth-constraint/>
+	</security-constraint>
+    
+    <security-role>
+        <role-name>tomcat</role-name>
+    </security-role>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+			<form-login-page>/login.html</form-login-page>
+			<form-error-page>/login-failed.html</form-error-page>
+		</form-login-config>
+    </login-config>
+</web-app>

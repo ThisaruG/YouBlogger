@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Login To YouBlogger</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    
+    <body>
+        <div id = "Header">
+            <h1>YouBlogger</h1>
+            <form method="POST" action="j_security_check">
+                <table>
+                    <tr>
+                        <td colspan="2">Login to YouBlogger:</td>
+                    </tr>
+                    <tr>
+                        <td>User Name:</td>
+                        <td><input type="text" name="j_username" /></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" name="j_password" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="Sign In" /></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

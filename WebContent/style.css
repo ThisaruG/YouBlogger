@@ -1,0 +1,19 @@
+h1 {
+    font-family: "Comic Sans MS";
+    font-size: 40px;
+    color: #2299FF;
+    text-align: center;
+}
+
+h4 {
+	line-height: 50%;
+}
+
+body {
+    background-color: #99EEFF;
+}
+
+.pTitle {
+	width: 400px;
+	height: 20px;
+}
