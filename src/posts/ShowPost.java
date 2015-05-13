@@ -15,12 +15,11 @@ public class ShowPost extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		response.setContentType("text/html");
         BufferedReader bufferRd = null;
-		//String path = (getServletContext().getResourceAsStream("/Posts") + request.getParameter("file"));
 		String title = null,line = null;
 		ArrayList<String> content = new ArrayList<String>();
 		
 		try {
-            bufferRd = new BufferedReader(new InputStreamReader(getServletContext().getResourceAsStream("/Posts/" + request.getParameter("file"))));
+            bufferRd = new BufferedReader(new InputStreamReader(getServletContext().getResourceAsStream("/Posts" + request.getParameter("file") + "/post")));
             title = bufferRd.readLine();
             int i = 0;
             while((line = bufferRd.readLine()) != null) {
@@ -31,7 +30,6 @@ public class ShowPost extends HttpServlet {
         } catch (FileNotFoundException x) {
         	x.printStackTrace();
         } catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		request.setAttribute("title", title);

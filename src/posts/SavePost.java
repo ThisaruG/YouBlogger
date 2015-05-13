@@ -30,7 +30,7 @@ public class SavePost extends HttpServlet {
 		String content = request.getParameter("content");
 		
 		while (true) {
-			fileName = "../webapps/YouBlogger/Posts/Post" + rand.nextInt(RANGE) + ".yblg";
+			fileName = getServletContext().getResource("/Posts").toString() + rand.nextInt(RANGE) + "/post.yblg";
 			
 			if (!(postList.contains(fileName))) {
 				synchronized (postList) {

@@ -22,7 +22,7 @@ public class IndexServlet extends HttpServlet {
 	
 	//@SuppressWarnings({ "unchecked"})
 	public void doService (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = getServletContext().getRealPath("/Posts");
+		String path = getServletContext().getResource("/Posts").toString();
 		String fileName, title;
 		File dir = new File(path);
         File [] files  = dir.listFiles();
