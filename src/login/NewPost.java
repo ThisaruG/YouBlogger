@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@SuppressWarnings("serial")
-public class AuthenticationServer extends HttpServlet {
+public class NewPost extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
 	public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doService(request, response);
@@ -22,6 +22,6 @@ public class AuthenticationServer extends HttpServlet {
         response.setContentType("text/html");
         String user = request.getRemoteUser();
         request.setAttribute("user", user);
-        response.sendRedirect(request.getHeader("referer"));
+        request.getRequestDispatcher("/new_post.jsp").forward(request, response);
 	}
 }

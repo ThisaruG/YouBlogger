@@ -2,6 +2,7 @@
 	<head>
 		<title>Add New Post</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	</head>
 	<body>
 		<%@ page session="true"%>
@@ -9,7 +10,7 @@
 		<% String u = request.getRemoteUser().toString(); %>
 		<h3>Hello,  <%=u%></h3>
 		<table>
-			<form action="posted" id = "add_post" method = "post">
+			<form action = "posted" id = "add_post" method = "post">
 			<tr>
 				<td>Title: </td>
 				<td>

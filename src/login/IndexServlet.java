@@ -20,9 +20,8 @@ public class IndexServlet extends HttpServlet {
 		doService(request, response);
 	}
 	
-	//@SuppressWarnings({ "unchecked"})
 	public void doService (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = getServletContext().getResource("/Posts").toString();
+		String path = getServletContext().getRealPath("/Posts");
 		String fileName, title;
 		File dir = new File(path);
         File [] files  = dir.listFiles();
@@ -59,7 +58,7 @@ public class IndexServlet extends HttpServlet {
 	            }
 	        });
 	        
-	        for(int i = 0; i < 10; i++) {
+	        for(int i = 0; i < files.length; i++) {
 	            fileName = files[i].getName();
 	            try {
 	            	fileRd = new FileReader(files[i].getAbsolutePath());

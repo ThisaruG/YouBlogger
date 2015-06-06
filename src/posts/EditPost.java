@@ -2,7 +2,6 @@ package posts;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SavePost extends HttpServlet {
+public class EditPost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	final static int RANGE = 10000;
 	static ArrayList<String> postList = new ArrayList<String>();
@@ -23,36 +22,18 @@ public class SavePost extends HttpServlet {
 	}
 	
 	public void doService (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Random rand = new Random();
 		String fileName = null;
 		BufferedWriter writer = null;
 		String title = request.getParameter("Post_Title");
 		String content = request.getParameter("content");
-		String origin = "../webapps/YouBlogger/Posts/";
+		System.out.println(request.getParameter("file"));
 		
-		while (true) {
-			fileName = "Post" + rand.nextInt(RANGE);
-			
-			if (!(postList.contains(fileName))) {
-				synchronized (postList) {
-					postList.add(fileName);
-				}
-				break;
-			}
-		}
-		String fullPath = origin + fileName + ".yblg";
-		String appCommentPath = "../webapps/YouBlogger/Comments/ApprovedComments/" + fileName + ".ybcm";
-		String pndCommentPath = "../webapps/YouBlogger/Comments/PendingComments/" + fileName + "ybcm";
+		fileName = getServletContext().getRealPath("/Posts/") + request.getParameter("file") + ".yblg";
+
 		try {
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(fullPath))));
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(fileName))));
 			writer.write(title + "\n");
 			writer.write(content);
-			writer.close();
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(appCommentPath))));
-			writer.write("");
-			writer.close();
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(pndCommentPath))));
-			writer.close();
 		}
 		
 		catch (FileNotFoundException e) {
@@ -62,9 +43,16 @@ public class SavePost extends HttpServlet {
 		}
 		
 		finally {
-		    request.setAttribute("title", title);
-		    RequestDispatcher dispatcher = request.getRequestDispatcher("/posted.jsp");
-		    dispatcher.forward(request, response);
+			if (writer != null) {
+				try {
+					writer.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
+	    request.setAttribute("title", title);
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("/edited.jsp");
+	    dispatcher.forward(request, response);
 	}
 }
